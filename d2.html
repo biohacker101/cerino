@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trial Search</title>
+    <title>Upload RFP & Send Proposal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,186 +14,124 @@
         <img src="cerino.png" alt="Logo" class="h-10" />
         <div class="space-x-4">
             <a href="dashboard.html" class="text-gray-700 hover:text-blue-500">Dashboard</a>
-            <a href="#" class="text-gray-700 hover:text-blue-500">Trial Search</a>
-            <a href="#" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
-            <a href="#" class="text-gray-700 hover:text-blue-500">Site Performance</a>
+            <a href="details.html" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="soc.html" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="rfp.html" class="text-gray-700 hover:text-blue-500">Proposal Generation</a>
             <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
         </div>
     </nav>
 
-    <!-- CONTENT WRAPPER -->
-    <div class="max-w-6xl mx-auto mt-10 px-4">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Trial Search</h2>
+    <!-- MAIN CONTENT -->
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6">Upload RFP & Send Proposal</h1>
 
-        <!-- SEARCH & FILTERS -->
-        <div class="search-filter-container bg-white p-6 rounded-lg shadow-md mb-6">
-            <!-- SEARCH BAR -->
-            <div class="search-bar flex items-center gap-4 mb-4">
-                <input type="text" value="Breast Cancer" aria-label="Search trials"
-                    class="flex-1 p-2 border border-gray-300 rounded-md" />
-                <button onclick="redirectToSearch()"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                    Search
+        <!-- RFP Upload Section -->
+        <form id="rfpForm" class="mb-6">
+            <input type="file" id="rfpFile" accept=".pdf"
+                class="block w-full p-2 border border-gray-300 rounded-md mb-4" />
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                Upload & Display
+            </button>
+        </form>
+
+        <div id="fileInfo" class="text-gray-600 text-sm mb-4"></div>
+        <div id="pdfViewer" class="mt-4"></div>
+
+        <!-- Proposal Email Section -->
+        <div class="proposal-section mt-8">
+            <h3 class="text-xl font-medium text-gray-800 mb-4">Create & Send Proposal</h3>
+
+            <!-- Template Selection -->
+            <div class="mb-4">
+                <label for="templateSelect" class="block text-sm font-medium text-gray-700 mb-2">Select Proposal
+                    Template:</label>
+                <select id="templateSelect" class="block w-full p-2 border border-gray-300 rounded-md">
+                    <option value="">Select Template</option>
+                    <option value="phase1">Phase I Template</option>
+                    <option value="phase2">Phase II Template</option>
+                    <option value="custom">Custom Proposal</option>
+                </select>
+            </div>
+
+            <form id="proposalForm">
+                <input type="email" id="emailTo" placeholder="Sponsor Email" required
+                    class="block w-full p-2 border border-gray-300 rounded-md mb-4" />
+                <textarea id="emailContent" rows="6" placeholder="Write your proposal response here..." required
+                    class="block w-full p-2 border border-gray-300 rounded-md mb-4"></textarea>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Send Proposal
                 </button>
-            </div>
+            </form>
 
-            <!-- FILTER PANEL -->
-            <div class="filter-panel flex flex-wrap gap-4">
-                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
-                    <label for="phaseSelect" class="text-sm font-medium">Phase:</label>
-                    <select id="phaseSelect" name="phaseSelect" class="p-2 border border-gray-300 rounded-md">
-                        <option value="">All</option>
-                        <option value="I">Phase I</option>
-                        <option value="II">Phase II</option>
-                        <option value="III">Phase III</option>
-                        <option value="IV">Phase IV</option>
-                    </select>
-                </div>
-
-                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
-                    <label for="regionSelect" class="text-sm font-medium">Region/Country:</label>
-                    <select id="regionSelect" name="regionSelect" class="p-2 border border-gray-300 rounded-md">
-                        <option value="">All</option>
-                        <option value="US">United States</option>
-                        <option value="Canada">Canada</option>
-                        <option value="EU">European Union</option>
-                        <option value="Asia">Asia</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
-                    <label class="text-sm font-medium">Status:</label>
-                    <div>
-                        <input type="checkbox" id="statusRecruiting" name="statusRecruiting" />
-                        <label for="statusRecruiting" class="ml-2">Recruiting</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="statusNotYet" name="statusNotYet" />
-                        <label for="statusNotYet" class="ml-2">Not yet recruiting</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="statusCompleted" name="statusCompleted" />
-                        <label for="statusCompleted" class="ml-2">Completed</label>
-                    </div>
-                </div>
-
-                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
-                    <label for="startDate" class="text-sm font-medium">Start Date (Earliest):</label>
-                    <input type="date" id="startDate" name="startDate" class="p-2 border border-gray-300 rounded-md" />
-                </div>
-
-                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
-                    <label for="sponsorName" class="text-sm font-medium">Sponsor Filter:</label>
-                    <input type="text" id="sponsorName" name="sponsorName" placeholder="e.g., Pfizer"
-                        class="p-2 border border-gray-300 rounded-md" />
-                </div>
-            </div>
-        </div>
-
-        <!-- RESULTS TABLE -->
-        <div class="results-table bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-medium text-gray-800 mb-4">Breast Cancer Trials</h3>
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-100 text-left">
-                        <th class="py-2 px-4 border-b">Trial Title</th>
-                        <th class="py-2 px-4 border-b">Sponsor</th>
-                        <th class="py-2 px-4 border-b">Phase</th>
-                        <th class="py-2 px-4 border-b">Status</th>
-                        <th class="py-2 px-4 border-b">Countries</th>
-                        <th class="py-2 px-4 border-b">Key Endpoint</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-2 px-4 border-b">Phase III Study of Drug X in Metastatic Breast Cancer</td>
-                        <td class="py-2 px-4 border-b">PharmaCorp</td>
-                        <td class="py-2 px-4 border-b">III</td>
-                        <td class="py-2 px-4 border-b">Recruiting</td>
-                        <td class="py-2 px-4 border-b">US, Canada, UK</td>
-                        <td class="py-2 px-4 border-b">Overall Survival (OS)</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4 border-b">Phase II Trial of Immunotherapy + Chemo in HER2+ Breast Cancer
-                        </td>
-                        <td class="py-2 px-4 border-b">BioHealth Inc.</td>
-                        <td class="py-2 px-4 border-b">II</td>
-                        <td class="py-2 px-4 border-b">Not yet recruiting</td>
-                        <td class="py-2 px-4 border-b">US, France</td>
-                        <td class="py-2 px-4 border-b">Progression-Free Survival (PFS)</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4 border-b">Phase I Dose-Escalation for Triple-Negative Breast Cancer</td>
-                        <td class="py-2 px-4 border-b">GeneX Lab</td>
-                        <td class="py-2 px-4 border-b">I</td>
-                        <td class="py-2 px-4 border-b">Recruiting</td>
-                        <td class="py-2 px-4 border-b">US, Germany</td>
-                        <td class="py-2 px-4 border-b">Safety & Tolerability</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4 border-b">Phase III Adjuvant Therapy in Early-Stage Breast Cancer</td>
-                        <td class="py-2 px-4 border-b">Onco Global</td>
-                        <td class="py-2 px-4 border-b">III</td>
-                        <td class="py-2 px-4 border-b">Completed</td>
-                        <td class="py-2 px-4 border-b">Spain, Italy, Canada</td>
-                        <td class="py-2 px-4 border-b">Disease-Free Survival</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- BREAST CANCER-SPECIFIC INSIGHTS -->
-        <div class="bc-insights bg-white p-6 rounded-lg shadow-md mt-6">
-            <h3 class="text-xl font-medium text-gray-800 mb-4">Breast Cancer–Specific Insights</h3>
-            <p class="text-gray-600 mb-4">
-                The platform has analyzed
-                <span class="highlight">4 current Breast Cancer trials</span> in your results:
-            </p>
-            <ul class="bullet-points list-disc ml-6 mb-4">
-                <li>
-                    <strong>2 trials</strong> use an
-                    <span class="highlight">immunotherapy-based control</span> (signaling a shift in SoC).
-                </li>
-                <li>
-                    <strong>Most endpoints</strong> emphasize
-                    <span class="highlight">PFS or OS</span> — consider targeting
-                    <em>Quality of Life</em> or <em>Real-world Evidence</em> if you want to differentiate.
-                </li>
-                <li>
-                    <strong>Recruitment Overlap:</strong>
-                    3 of these trials are in the <em>US</em> and <em>Canada</em>,
-                    raising competition for the same patient pool.
-                </li>
-                <li>
-                    <strong>Site Availability:</strong>
-                    1 trial is completed, freeing up potential sites that may now be open for new studies.
-                </li>
-            </ul>
-            <p class="text-gray-600 mb-4">
-                Based on these observations, <strong>you can:</strong>
-            </p>
-            <ul class="bullet-points list-disc ml-6">
-                <li>
-                    Propose a <em>novel endpoint</em> (e.g., QOL measure) or updated comparator to differentiate from
-                    ongoing PFS/OS–focused trials.
-                </li>
-                <li>
-                    Identify <em>less-crowded regions</em> (e.g., outside North America) to boost enrollment speed.
-                </li>
-                <li>
-                    Consider <em>post-completion sites</em> from the finished Phase III trial (Onco Global) for faster
-                    start-up.
-                </li>
-            </ul>
+            <div id="emailPreview" class="bg-gray-100 p-4 rounded-md mt-4 text-gray-700 text-sm"></div>
         </div>
     </div>
 
     <script>
-        function redirectToSearch() {
-            // Redirect logic (if needed)
-            console.log("Redirect to Search triggered");
-        }
+        // File Upload and Display
+        const rfpForm = document.getElementById('rfpForm');
+        const rfpFile = document.getElementById('rfpFile');
+        const fileInfo = document.getElementById('fileInfo');
+        const pdfViewer = document.getElementById('pdfViewer');
+
+        rfpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!rfpFile.files || rfpFile.files.length === 0) {
+                alert('Please select a PDF file before uploading.');
+                return;
+            }
+
+            const file = rfpFile.files[0];
+
+            if (!file.type.includes('pdf')) {
+                alert('Only PDF files can be displayed.');
+                fileInfo.innerText = `You uploaded: ${file.name}`;
+                pdfViewer.innerHTML = '';
+                return;
+            }
+
+            fileInfo.innerText = `Uploaded: ${file.name}`;
+            const fileURL = URL.createObjectURL(file);
+            pdfViewer.innerHTML = `<iframe src="${fileURL}" class="w-full h-96 border border-gray-300 rounded-md"></iframe>`;
+        });
+
+        // Proposal Email Submission
+        const proposalForm = document.getElementById('proposalForm');
+        const emailTo = document.getElementById('emailTo');
+        const emailContent = document.getElementById('emailContent');
+        const emailPreview = document.getElementById('emailPreview');
+        const templateSelect = document.getElementById('templateSelect');
+
+        // Predefined Templates
+        const templates = {
+            phase1: 'Phase I Proposal Template Content Here...',
+            phase2: 'Phase II Proposal Template Content Here...'
+        };
+
+        templateSelect.addEventListener('change', () => {
+            const selectedTemplate = templateSelect.value;
+            emailContent.value = templates[selectedTemplate] || '';
+        });
+
+        proposalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const recipient = emailTo.value;
+            const content = emailContent.value;
+
+            alert(`Proposal sent to: ${recipient}`);
+
+            emailPreview.innerHTML = `
+                <strong>Email Sent:</strong>
+                <p><strong>To:</strong> ${recipient}</p>
+                <p><strong>Content:</strong> ${content}</p>
+            `;
+
+            emailTo.value = '';
+            emailContent.value = '';
+            templateSelect.value = '';
+        });
     </script>
 </body>
 

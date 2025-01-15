@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trial Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <img src="img/cerino.png" alt="Logo" class="h-10" />
+        <div class="space-x-4">
+            <a href="dashboard.html" class="text-gray-700 hover:text-blue-500">Dashboard</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Site Performance</a>
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
+        </div>
+    </nav>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="max-w-6xl mx-auto mt-10 px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Trial Search</h2>
+
+        <!-- SEARCH & FILTERS -->
+        <div class="search-filter-container bg-white p-6 rounded-lg shadow-md mb-6">
+            <!-- SEARCH BAR -->
+            <div class="search-bar flex items-center gap-4 mb-4">
+                <input type="text" value="Breast Cancer" aria-label="Search trials"
+                    class="flex-1 p-2 border border-gray-300 rounded-md" />
+                <button onclick="redirectToSearch()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Search
+                </button>
+            </div>
+
+            <!-- FILTER PANEL -->
+            <div class="filter-panel flex flex-wrap gap-4">
+                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
+                    <label for="phaseSelect" class="text-sm font-medium">Phase:</label>
+                    <select id="phaseSelect" name="phaseSelect" class="p-2 border border-gray-300 rounded-md">
+                        <option value="">All</option>
+                        <option value="I">Phase I</option>
+                        <option value="II">Phase II</option>
+                        <option value="III">Phase III</option>
+                        <option value="IV">Phase IV</option>
+                    </select>
+                </div>
+
+                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
+                    <label for="regionSelect" class="text-sm font-medium">Region/Country:</label>
+                    <select id="regionSelect" name="regionSelect" class="p-2 border border-gray-300 rounded-md">
+                        <option value="">All</option>
+                        <option value="US">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="EU">European Union</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
+                    <label class="text-sm font-medium">Status:</label>
+                    <div>
+                        <input type="checkbox" id="statusRecruiting" name="statusRecruiting" />
+                        <label for="statusRecruiting" class="ml-2">Recruiting</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="statusNotYet" name="statusNotYet" />
+                        <label for="statusNotYet" class="ml-2">Not yet recruiting</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="statusCompleted" name="statusCompleted" />
+                        <label for="statusCompleted" class="ml-2">Completed</label>
+                    </div>
+                </div>
+
+                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
+                    <label for="startDate" class="text-sm font-medium">Start Date (Earliest):</label>
+                    <input type="date" id="startDate" name="startDate" class="p-2 border border-gray-300 rounded-md" />
+                </div>
+
+                <div class="filter-group flex flex-col gap-2 min-w-[150px]">
+                    <label for="sponsorName" class="text-sm font-medium">Sponsor Filter:</label>
+                    <input type="text" id="sponsorName" name="sponsorName" placeholder="e.g., Pfizer"
+                        class="p-2 border border-gray-300 rounded-md" />
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS TABLE -->
+        <div class="results-table bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-medium text-gray-800 mb-4">Breast Cancer Trials</h3>
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 text-left">
+                        <th class="py-2 px-4 border-b">Trial Title</th>
+                        <th class="py-2 px-4 border-b">Sponsor</th>
+                        <th class="py-2 px-4 border-b">Phase</th>
+                        <th class="py-2 px-4 border-b">Status</th>
+                        <th class="py-2 px-4 border-b">Countries</th>
+                        <th class="py-2 px-4 border-b">Key Endpoint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4 border-b">Phase III Study of Drug X in Metastatic Breast Cancer</td>
+                        <td class="py-2 px-4 border-b">PharmaCorp</td>
+                        <td class="py-2 px-4 border-b">III</td>
+                        <td class="py-2 px-4 border-b">Recruiting</td>
+                        <td class="py-2 px-4 border-b">US, Canada, UK</td>
+                        <td class="py-2 px-4 border-b">Overall Survival (OS)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b">Phase II Trial of Immunotherapy + Chemo in HER2+ Breast Cancer
+                        </td>
+                        <td class="py-2 px-4 border-b">BioHealth Inc.</td>
+                        <td class="py-2 px-4 border-b">II</td>
+                        <td class="py-2 px-4 border-b">Not yet recruiting</td>
+                        <td class="py-2 px-4 border-b">US, France</td>
+                        <td class="py-2 px-4 border-b">Progression-Free Survival (PFS)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b">Phase I Dose-Escalation for Triple-Negative Breast Cancer</td>
+                        <td class="py-2 px-4 border-b">GeneX Lab</td>
+                        <td class="py-2 px-4 border-b">I</td>
+                        <td class="py-2 px-4 border-b">Recruiting</td>
+                        <td class="py-2 px-4 border-b">US, Germany</td>
+                        <td class="py-2 px-4 border-b">Safety & Tolerability</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b">Phase III Adjuvant Therapy in Early-Stage Breast Cancer</td>
+                        <td class="py-2 px-4 border-b">Onco Global</td>
+                        <td class="py-2 px-4 border-b">III</td>
+                        <td class="py-2 px-4 border-b">Completed</td>
+                        <td class="py-2 px-4 border-b">Spain, Italy, Canada</td>
+                        <td class="py-2 px-4 border-b">Disease-Free Survival</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BREAST CANCER-SPECIFIC INSIGHTS -->
+        <div class="bc-insights bg-white p-6 rounded-lg shadow-md mt-6">
+            <h3 class="text-xl font-medium text-gray-800 mb-4">Breast Cancer–Specific Insights</h3>
+            <p class="text-gray-600 mb-4">
+                The platform has analyzed
+                <span class="highlight">4 current Breast Cancer trials</span> in your results:
+            </p>
+            <ul class="bullet-points list-disc ml-6 mb-4">
+                <li>
+                    <strong>2 trials</strong> use an
+                    <span class="highlight">immunotherapy-based control</span> (signaling a shift in SoC).
+                </li>
+                <li>
+                    <strong>Most endpoints</strong> emphasize
+                    <span class="highlight">PFS or OS</span> — consider targeting
+                    <em>Quality of Life</em> or <em>Real-world Evidence</em> if you want to differentiate.
+                </li>
+                <li>
+                    <strong>Recruitment Overlap:</strong>
+                    3 of these trials are in the <em>US</em> and <em>Canada</em>,
+                    raising competition for the same patient pool.
+                </li>
+                <li>
+                    <strong>Site Availability:</strong>
+                    1 trial is completed, freeing up potential sites that may now be open for new studies.
+                </li>
+            </ul>
+            <p class="text-gray-600 mb-4">
+                Based on these observations, <strong>you can:</strong>
+            </p>
+            <ul class="bullet-points list-disc ml-6">
+                <li>
+                    Propose a <em>novel endpoint</em> (e.g., QOL measure) or updated comparator to differentiate from
+                    ongoing PFS/OS–focused trials.
+                </li>
+                <li>
+                    Identify <em>less-crowded regions</em> (e.g., outside North America) to boost enrollment speed.
+                </li>
+                <li>
+                    Consider <em>post-completion sites</em> from the finished Phase III trial (Onco Global) for faster
+                    start-up.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function redirectToSearch() {
+            // Redirect logic (if needed)
+            console.log("Redirect to Search triggered");
+        }
+    </script>
+</body>
+
+</html>

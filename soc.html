@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoC Snapshot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <img src="img/cerino.png" alt="Logo" class="h-10" />
+        <div class="space-x-4">
+            <a href="dashboard.html" class="text-gray-700 hover:text-blue-500">Dashboard</a>
+            <a href="details.html" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="soc.html" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="rfp.html" class="text-gray-700 hover:text-blue-500">Proposal Generation</a>
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
+        </div>
+    </nav>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="max-w-6xl mx-auto mt-10 px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Standard of Care Snapshot</h2>
+
+        <!-- OPTIONAL ALERT -->
+        <div class="alert bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 rounded"
+            id="comparatorAlert" style="display: none;">
+            <strong>Mismatch Alert:</strong> The proposed comparator is not aligned with known SoC for this indication.
+        </div>
+
+        <!-- INDICATION INPUT -->
+        <div class="search-bar flex items-center gap-4 mb-4">
+            <input type="text" id="indicationText" placeholder="Type any indication, e.g. 'Breast Cancer'"
+                class="flex-1 p-2 border border-gray-300 rounded-md" />
+            <button id="searchBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                Search
+            </button>
+        </div>
+
+        <!-- GUIDELINE SUMMARIES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="guidelineContainer">
+            <!-- Example placeholders; replaced/hidden until user searches -->
+        </div>
+    </div>
+
+    <script>
+        // Fake SoC data for demonstration:
+        const FAKE_SoC_DATA = {
+            'breast cancer': [
+                {
+                    source: 'NCCN Guidelines - 2025 Update',
+                    points: [
+                        'First-line therapy for HER2+ includes targeted agents',
+                        'Immunotherapy recommended for metastatic triple-negative',
+                        'Endocrine therapy as maintenance for ER+ disease'
+                    ],
+                    link: 'https://www.nccn.org/'
+                },
+                {
+                    source: 'ESMO Guidelines - v4.2',
+                    points: [
+                        'Preferred regimens for metastatic BC involve immune checkpoint inhibitors',
+                        'Chemo backbone tailored by biomarker status',
+                        'Regular imaging every 8–12 weeks'
+                    ],
+                    link: 'https://www.esmo.org/'
+                },
+                {
+                    source: 'ASCO Guidelines - 2024 Update',
+                    points: [
+                        'Neoadjuvant therapy for locally advanced disease recommended',
+                        'Adjuvant endocrine therapy for hormone receptor positive tumors',
+                        'Genomic testing to guide therapy selection'
+                    ],
+                    link: 'https://www.asco.org/'
+                }
+            ],
+            'nsclc': [
+                {
+                    source: 'NCCN Guidelines - 2025 Update',
+                    points: [
+                        'EGFR mutation test recommended before selecting therapy',
+                        'Immunotherapy standard in metastatic NSCLC without driver mutations',
+                        'Maintenance therapy if partial response or stable disease'
+                    ],
+                    link: 'https://www.nccn.org/'
+                }
+            ]
+            // ... You can add more diseases as needed
+        };
+
+        const inputField = document.getElementById('indicationText');
+        const searchBtn = document.getElementById('searchBtn');
+        const container = document.getElementById('guidelineContainer');
+        const alertBox = document.getElementById('comparatorAlert');
+
+        // Simple search function
+        function handleSearch() {
+            const query = inputField.value.trim().toLowerCase();
+            container.innerHTML = '';       // Clear existing guidelines
+            alertBox.style.display = 'none'; // Hide alert by default
+
+            if (!query) return; // If empty, do nothing
+
+            // Check if we have guidelines for this indication in FAKE_SoC_DATA
+            if (FAKE_SoC_DATA[query]) {
+                // Example: If we consider 'breast cancer' might have a known mismatch
+                if (query === 'breast cancer') {
+                    // Show mismatch alert just for demonstration
+                    alertBox.style.display = 'block';
+                }
+
+                const guidelines = FAKE_SoC_DATA[query];
+                guidelines.forEach(g => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-4 rounded-lg shadow-md';
+
+                    const h4 = document.createElement('h4');
+                    h4.className = 'text-lg font-semibold text-gray-800 mb-2';
+                    h4.textContent = g.source;
+
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-disc ml-5 text-gray-600';
+                    g.points.forEach(pt => {
+                        const li = document.createElement('li');
+                        li.textContent = pt;
+                        ul.appendChild(li);
+                    });
+
+                    const link = document.createElement('a');
+                    link.className = 'text-blue-500 hover:underline mt-2 block';
+                    link.href = g.link;
+                    link.target = '_blank';
+                    link.textContent = 'Read Full Guideline';
+
+                    card.appendChild(h4);
+                    card.appendChild(ul);
+                    card.appendChild(link);
+
+                    container.appendChild(card);
+                });
+
+            } else {
+                // If no guidelines found, show a placeholder
+                const noData = document.createElement('p');
+                noData.className = 'text-gray-600';
+                noData.textContent = `No SoC guidelines found for "${query}".`;
+                container.appendChild(noData);
+            }
+        }
+
+        // Attach event to button
+        searchBtn.addEventListener('click', handleSearch);
+
+        // Optional: Press Enter to search
+        inputField.addEventListener('keypress', e => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    </script>
+</body>
+
+</html>

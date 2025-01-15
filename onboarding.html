@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRO Onboarding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <img src="img/cerino.png" alt="Logo" class="h-10" />
+        <div class="space-x-4">
+            <a href="#" class="text-gray-700 hover:text-blue-500">Dashboard</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Proposal Generation</a>
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
+        </div>
+    </nav>
+
+    <!-- ONBOARDING FORM -->
+    <div class="max-w-lg mx-auto mt-12 bg-white p-8 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800 text-center">Welcome! Let's set up your CRO profile.</h2>
+        <p class="text-sm text-gray-600 text-center mt-2 mb-6">We need a few details so sponsors and collaborators can
+            identify your organization for trial opportunities.</p>
+
+        <form id="onboardingForm" class="space-y-6">
+            <!-- CRO NAME -->
+            <div>
+                <label for="croName" class="block text-sm font-medium text-gray-700">CRO Name <span
+                        class="text-red-500">*</span></label>
+                <input type="text" id="croName" name="croName" placeholder="e.g. Premier Clinical Services" required
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- HEADQUARTERS / ADDRESS -->
+            <div>
+                <label for="hqAddress" class="block text-sm font-medium text-gray-700">Headquarters (Address) <span
+                        class="text-red-500">*</span></label>
+                <input type="text" id="hqAddress" name="hqAddress" placeholder="Street, City, ZIP" required
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- COUNTRY -->
+            <div>
+                <label for="country" class="block text-sm font-medium text-gray-700">Country <span
+                        class="text-red-500">*</span></label>
+                <select id="country" name="country" required
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected hidden>Select your country</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <!-- CRO TYPE -->
+            <div>
+                <label for="croType" class="block text-sm font-medium text-gray-700">Type of CRO <span
+                        class="text-red-500">*</span></label>
+                <select id="croType" name="croType" required
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected hidden>Select your organization type</option>
+                    <option value="Full-Service CRO">Full-Service CRO</option>
+                    <option value="Functional Service Provider">Functional Service Provider</option>
+                    <option value="Consultant/Independent">Consultant / Independent</option>
+                    <option value="Other">Other (explain below)</option>
+                </select>
+            </div>
+
+            <!-- OPTIONAL TEXTAREA IF "Other" SELECTED -->
+            <div>
+                <label for="otherDetails" class="block text-sm font-medium text-gray-700">Additional Details
+                    (Optional)</label>
+                <textarea id="otherDetails" name="otherDetails"
+                    placeholder="If 'Other,' please specify here. Or share anything else about your CRO."
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="button"
+                class="w-full bg-blue-200 text-gray-800 py-3 rounded-md font-medium hover:bg-blue-300 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                onclick="window.location.href='dashboard.html'">
+                Continue
+            </button>
+
+
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('onboardingForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            // In a real app, you'd likely capture this form data and send it to your backend
+            window.location.href = 'ob2.html'; // Redirect to the next step (e.g. ob2.html)
+        });
+    </script>
+</body>
+
+</html>

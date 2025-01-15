@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload RFP & Send Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <img src="img/cerino.png" alt="Logo" class="h-10" />
+        <div class="space-x-4">
+            <a href="#" class="text-gray-700 hover:text-blue-500">Dashboard</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="#" class="text-gray-700 hover:text-blue-500">Proposal Generation</a>
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6">Upload RFP & Send Proposal</h1>
+
+        <!-- RFP Upload Section -->
+        <form id="rfpForm" class="mb-6">
+            <input type="file" id="rfpFile" accept=".pdf"
+                class="block w-full p-2 border border-gray-300 rounded-md mb-4" />
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                Upload & Display
+            </button>
+        </form>
+
+        <div id="fileInfo" class="text-gray-600 text-sm mb-4"></div>
+        <div id="pdfViewer" class="mt-4"></div>
+
+        <!-- Proposal Email Section -->
+        <div class="proposal-section mt-8">
+            <h3 class="text-xl font-medium text-gray-800 mb-4">Create & Send Proposal</h3>
+
+            <!-- Template Selection -->
+            <div class="mb-4">
+                <label for="templateSelect" class="block text-sm font-medium text-gray-700 mb-2">Select Proposal
+                    Template:</label>
+                <select id="templateSelect" class="block w-full p-2 border border-gray-300 rounded-md">
+                    <option value="">Select Template</option>
+                    <option value="phase1">Phase I Template</option>
+                    <option value="phase2">Phase II Template</option>
+                    <option value="custom">Custom Proposal</option>
+                </select>
+            </div>
+
+            <form id="proposalForm">
+                <input type="email" id="emailTo" placeholder="Sponsor Email" required
+                    class="block w-full p-2 border border-gray-300 rounded-md mb-4" />
+                <textarea id="emailContent" rows="6" placeholder="Write your proposal response here..." required
+                    class="block w-full p-2 border border-gray-300 rounded-md mb-4"></textarea>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Send Proposal
+                </button>
+            </form>
+
+            <div id="emailPreview" class="bg-gray-100 p-4 rounded-md mt-4 text-gray-700 text-sm"></div>
+        </div>
+    </div>
+
+    <script>
+        // File Upload and Display
+        const rfpForm = document.getElementById('rfpForm');
+        const rfpFile = document.getElementById('rfpFile');
+        const fileInfo = document.getElementById('fileInfo');
+        const pdfViewer = document.getElementById('pdfViewer');
+
+        rfpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!rfpFile.files || rfpFile.files.length === 0) {
+                alert('Please select a PDF file before uploading.');
+                return;
+            }
+
+            const file = rfpFile.files[0];
+
+            if (!file.type.includes('pdf')) {
+                alert('Only PDF files can be displayed.');
+                fileInfo.innerText = `You uploaded: ${file.name}`;
+                pdfViewer.innerHTML = '';
+                return;
+            }
+
+            fileInfo.innerText = `Uploaded: ${file.name}`;
+            const fileURL = URL.createObjectURL(file);
+            pdfViewer.innerHTML = `<iframe src="${fileURL}" class="w-full h-96 border border-gray-300 rounded-md"></iframe>`;
+        });
+
+        // Proposal Email Submission
+        const proposalForm = document.getElementById('proposalForm');
+        const emailTo = document.getElementById('emailTo');
+        const emailContent = document.getElementById('emailContent');
+        const emailPreview = document.getElementById('emailPreview');
+        const templateSelect = document.getElementById('templateSelect');
+
+        // Predefined Templates
+        const templates = {
+            phase1: 'Phase I Proposal Template Content Here...',
+            phase2: 'Phase II Proposal Template Content Here...'
+        };
+
+        templateSelect.addEventListener('change', () => {
+            const selectedTemplate = templateSelect.value;
+            emailContent.value = templates[selectedTemplate] || '';
+        });
+
+        proposalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const recipient = emailTo.value;
+            const content = emailContent.value;
+
+            alert(`Proposal sent to: ${recipient}`);
+
+            emailPreview.innerHTML = `
+                <strong>Email Sent:</strong>
+                <p><strong>To:</strong> ${recipient}</p>
+                <p><strong>Content:</strong> ${content}</p>
+            `;
+
+            emailTo.value = '';
+            emailContent.value = '';
+            templateSelect.value = '';
+        });
+    </script>
+</body>
+
+</html>

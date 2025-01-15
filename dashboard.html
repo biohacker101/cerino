@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRO Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <img src="img/cerino.png" alt="Logo" class="h-10" />
+        <div class="space-x-4">
+            <a href="dashboard.html" class="text-gray-700 hover:text-blue-500">Dashboard</a>
+            <a href="details.html" class="text-gray-700 hover:text-blue-500">Trial Search</a>
+            <a href="soc.html" class="text-gray-700 hover:text-blue-500">SoC Snapshot</a>
+            <a href="rfp.html" class="text-gray-700 hover:text-blue-500">Proposal Generation</a>
+            <a href="#" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">Logout</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="max-w-6xl mx-auto mt-10 px-6">
+        <!-- WELCOME HEADER -->
+        <h2 class="text-2xl font-semibold text-gray-800">Hello, [CRO User Name]</h2>
+
+        <!-- UPLOAD RFP SECTION -->
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 mt-6">
+            <h4 class="text-lg font-medium text-gray-700">Upload New RFP</h4>
+            <form class="flex flex-col gap-4 mt-4">
+                <input type="file" accept=".pdf,.doc,.docx"
+                    class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                <button type="submit"
+                    class="bg-blue-200 text-gray-800 px-6 py-2 rounded-md hover:bg-blue-300">Upload</button>
+            </form>
+        </div>
+
+        <!-- RECENT ACTIVITY SECTION -->
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 mt-6">
+            <h4 class="text-lg font-medium text-gray-700">Recent Activity</h4>
+            <ul class="mt-4 space-y-2">
+                <li class="text-sm text-gray-600">Checked SoC update: Breast Cancer — <span class="text-gray-500">1 hour
+                        ago</span></li>
+                <li class="text-sm text-gray-600">Uploaded RFP: Phase II Breast Cancer Trial — <span
+                        class="text-gray-500">5 hours ago</span></li>
+                <li class="text-sm text-gray-600">Viewed competitor trial: Triple-Negative Breast Cancer — <span
+                        class="text-gray-500">Yesterday</span></li>
+                <li class="text-sm text-gray-600">Uploaded RFP: Phase III Breast Cancer Study — <span
+                        class="text-gray-500">2 days ago</span></li>
+            </ul>
+        </div>
+
+        <!-- TABLE OF RFPs SECTION -->
+        <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 mt-6">
+            <h4 class="text-lg font-medium text-gray-700">Current Pipeline</h4>
+            <table class="w-full mt-4 border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 text-left text-sm">
+                        <th class="py-2 px-4 border-b">Date Sent</th>
+                        <th class="py-2 px-4 border-b">Sponsor Name</th>
+                        <th class="py-2 px-4 border-b">Point of Contact</th>
+                        <th class="py-2 px-4 border-b">Trial Description</th>
+                        <th class="py-2 px-4 border-b">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-sm text-gray-700">
+                        <td class="py-2 px-4 border-b">10/15/2025</td>
+                        <td class="py-2 px-4 border-b">ABC Pharma</td>
+                        <td class="py-2 px-4 border-b">John Doe</td>
+                        <td class="py-2 px-4 border-b">Phase II study on breast cancer</td>
+                        <td class="py-2 px-4 border-b">
+                            <select
+                                class="status-dropdown block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="Under Review" class="text-yellow-500">Under Review</option>
+                                <option value="Feasibility Ongoing" class="text-blue-500">Feasibility Ongoing</option>
+                                <option value="Proposal Drafted" class="text-green-500">Proposal Drafted</option>
+                                <option value="Negotiations" class="text-purple-500">Negotiations</option>
+                                <option value="Declined" class="text-red-500">Declined</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-sm text-gray-700">
+                        <td class="py-2 px-4 border-b">10/14/2025</td>
+                        <td class="py-2 px-4 border-b">GreatMed Inc.</td>
+                        <td class="py-2 px-4 border-b">Jane Smith</td>
+                        <td class="py-2 px-4 border-b">Phase III breast cancer (HER2+) trial</td>
+                        <td class="py-2 px-4 border-b">
+                            <select
+                                class="status-dropdown block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="Under Review" class="text-yellow-500">Under Review</option>
+                                <option value="Feasibility Ongoing" class="text-blue-500" selected>Feasibility Ongoing
+                                </option>
+                                <option value="Proposal Drafted" class="text-green-500">Proposal Drafted</option>
+                                <option value="Negotiations" class="text-purple-500">Negotiations</option>
+                                <option value="Declined" class="text-red-500">Declined</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="text-sm text-gray-700">
+                        <td class="py-2 px-4 border-b">10/13/2025</td>
+                        <td class="py-2 px-4 border-b">HealthPro Ltd.</td>
+                        <td class="py-2 px-4 border-b">Emily Johnson</td>
+                        <td class="py-2 px-4 border-b">Phase I breast cancer vaccine development</td>
+                        <td class="py-2 px-4 border-b">
+                            <select
+                                class="status-dropdown block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option value="Under Review" class="text-yellow-500">Under Review</option>
+                                <option value="Feasibility Ongoing" class="text-blue-500">Feasibility Ongoing</option>
+                                <option value="Proposal Drafted" class="text-green-500" selected>Proposal Drafted
+                                </option>
+                                <option value="Negotiations" class="text-purple-500">Negotiations</option>
+                                <option value="Declined" class="text-red-500">Declined</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

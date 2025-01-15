@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .login-container {
+            text-align: center;
+            background: #ffffff;
+            padding: 100px 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            /* Set a fixed width to ensure alignment */
+        }
+
+        .login-container img {
+            width: 200px;
+            /* Adjust width for better alignment */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .login-container p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .login-container input {
+            width: calc(100% - 20px);
+            /* Add padding within inputs */
+            padding: 10px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 100%;
+            /* Match button width to inputs */
+            padding: 12px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background: #5e5e5e;
+        }
+
+        .login-container a {
+            margin-top: 20px;
+            /* Adjust spacing for visual balance */
+            font-size: 15px;
+            color: #7dcffb;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <img src="img/cerino.png" alt="Logo">
+        <p>Your Gateway to Personalized Trial Partnerships</p>
+        <form>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit" onclick="window.location.href='onboarding.html'">Sign In</button>
+        </form>
+        <a href="#">Forgot Password?</a>
+    </div>
+</body>
+
+</html>
